@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script>
+    $().ready(function() {  
+      $('#add').click(function() {  
+        return !$('#rules option:selected').remove().appendTo('#currentRules');  
+      });  
+      $('#remove').click(function() {
+          
+        return !$('#currentRules option:selected').remove().appendTo('rules');  
+      });  
+    });
+  </script>
+  
+  
+  
+  <h1>Create an example</h1>
+  
+  <form action="" method="post" class="add_rule_reference">{% csrf_token %}
+    <select multiple="multiple" id="rules">
+      {% for example in examples %}
+        <option>{{ example.description }}</option>
+      {% endfor %}
+    </select>
+
+    <select multiple="multiple" id="currentRules">
+      {% for example in currentExamples %}
+        <option>{{ example.description }}</option>
+      {% endfor %}
+    </select>
+    
+    <button id="add">Add</button>
+    
+    <button id="remove">remove</button>
+    
+    <input type="submit" value="Save"/>
+    
+  </form>
+  
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}User profile.{% endblock %}
+
+{% block content %}
+
+  {% if form.errors %}
+  <p class="errors">Please correct the errors below:, {{ form.errors.as_text }}</p>
+  {% endif %}
+
+  <h1>Edit Your Information Here</h1>
+  
+  <form method="POST" action="" class="register">
+	{% csrf_token %}
+    <p>
+      <label for="id_email">Email address:</label>
+      {% if form.email.errors %}
+        <p class="errors">{{ form.email.errors.as_text }}</p>
+      {% endif %}
+      {{ form.email }}
+    </p>
+    <p>
+      {% if form.first_name.errors %}
+        <p class="errors">{{ form.first_name.errors.as_text }}</p>
+      {% endif %}
+      <label for="id_first">First Name:</label>
+      {{ form.first_name }}
+    </p>
+    <p>
+      {% if form.last_name.errors %}
+        <p class="errors">{{ form.last_name.errors.as_text }}</p>
+      {% endif %}
+      <label for="id_last">Last Name:</label>
+      {{ form.last_name }}
+    </p>
+    <p>
+      {% if form.organization.errors %}
+        <p class="errors">{{ form.organization.errors.as_text }}</p>
+      {% endif %}
+      <label for="id_organization">Organization</label>
+      {{ form.organization }}
+    </p>
+    <a href="{% url "show_home" %}accounts/password/change/"<p>Click here to change password</p></a>
+    <input type="submit" value="Save"/>
+  </form>
+  
+
+{% endblock %}
+

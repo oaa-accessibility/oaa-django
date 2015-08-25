@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/coding/!svn/ver/109/trunk/django/registration/tests
+END
+default_backend.py
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/coding/!svn/ver/109/trunk/django/registration/tests/default_backend.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/coding/!svn/ver/109/trunk/django/registration/tests/__init__.py
+END
+simple_backend.py
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/coding/!svn/ver/109/trunk/django/registration/tests/simple_backend.py
+END
+models.py
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/coding/!svn/ver/109/trunk/django/registration/tests/models.py
+END
+urls.py
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/coding/!svn/ver/109/trunk/django/registration/tests/urls.py
+END
+forms.py
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/coding/!svn/ver/109/trunk/django/registration/tests/forms.py
+END

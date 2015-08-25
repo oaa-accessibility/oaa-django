@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div id="tool">
+
+{{ tool.description_html|safe }}    
+
+</div>
+{% endblock %}
+
+{% block nav_options %}
+<h2 id="id_nav_options_label"><a href="{{ nav_main.tool_url }}">Tool Options</a></h2>
+<ul>
+    {% for t in tools.all %}
+    <li  {%if t == tool %} class="active" {% endif %}><a href="{{ t.get_absolute_url }}">{{ t.abbrev|safe }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}

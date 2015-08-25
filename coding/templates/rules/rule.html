@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div id="rule">
+  
+  <h2>Definition</h2>
+  <p>{{ rule.definition_html|safe }}</p>
+
+  <h2>WCAG 2.0 Success Criteria</h2>
+  <ul>
+    <li class="primary"><a href="{{rule.wcag_primary.url}}" target="_requirement_ref">{{rule.wcag_primary.number}} {{rule.wcag_primary.title}}</a></li> 
+    {% if rule.wcag_related.all.count %}
+    {% for sc in rule.wcag_related.all %}
+    <li class="related"><a href="{{sc.url}}" target="_requirement_ref">{{sc.number}} {{sc.title}}</a></li>   
+    {% endfor %}
+    {% endif %}
+  </ul>
+  <h2>Purpose</h2>
+  <ul>
+    <li>{{ rule.purpose_1_html|safe }}</li>
+    {% if rule.purpose_2_html != "" %}<li>{{ rule.purpose_2_html|safe }}</li>{% endif %}
+    {% if rule.purpose_3_html != "" %}<li>{{ rule.purpose_3_html|safe }}</li>{% endif %}
+    {% if rule.purpose_4_html != "" %}<li>{{ rule.purpose_4_html|safe }}</li>{% endif %}
+  </ul>
+  <h2>Techniques</h2>
+  <ul>
+    {% for t, link in techniques_list %}
+    <li id="tech_li_{{ forloop.counter }}">{{ t.title_html|safe }} {% if rule_editor %} <a aria-labelledby="tech_li_{{ forloop.counter }}"target="_blank" href="{{ link }}"> edit </a></li> {% endif %}    
+    {% endfor %}     
+  </ul>
+  {% if rule_editor %}
+    <div class="edit_object"><a target="_blank"  href="{{ technique_add }}">Add a technique</a></div>
+  {% endif %}
+  <h2>Manual Checks</h2>
+  <ul>
+    {% if rule.manual_checks.all.count %}
+      {% for mc, link in manualchecks_list %}
+      <li id="mc_li_{{ forloop.counter }}">{{ mc.title_html|safe }}{% if rule_editor %} <a aria-describedby="mc_li_{{ forloop.counter }}" target="_blank" href="{{ link }}"> edit </a></li> {% endif %} </li>    
+      {% endfor %}      
+    {% else %}
+      <li class="none">none</li>
+    {% endif %}    
+  </ul>
+   {% if rule_editor %}
+      <div class="edit_object"><a  target="_blank" href="{{ manualcheck_add }}">Add a manual check.</a></div>
+   {% endif %}   
+  <h2>Examples</h2>
+  {% if rule.rule_references.all.count %}
+  <table aria-labelledby="examples">
+    <thead>
+      <tr>
+        <th class="text">Example Description</th>
+        <th class="text"><abbrev title="Does the example pass or fail automatic validation">Validation</abbrev></th>
+        <th class="text"><abbrev title="Does the example pass or fail a manual check">Manual Check</abbrev></th>
+        {% if example_editor %}<th class="text">Edit Reference</th>{% endif %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for rr, link in examples_list %}
+      <tr {% if forloop.counter|divisibleby:"2" %} class="even" {% else %} class="odd" {% endif %}>
+        <td class="text">
+          <a id="example_li_{{ forloop.counter }}" href="{{ rr.example.get_absolute_url }}">{{ rr.example.title_html|safe }}</a>
+          {% if rr.techniques.all.count %}
+          <p class="techniques">Techniques used in example</p>
+          <ul class="techniques">
+            {% for t in rr.techniques.all %}
+            <li>{{ t.title_html|safe}}</li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </td>            
+        <td class="text top">{{ rr.get_validation_html|safe }}</td>
+        <td class="text top">{{ rr.get_manual_check_html|safe }}</td>
+        {% if rule_editor %}<td class="text top"><a aria-labelledby="example_li_{{ forloop.counter }}" target="_blank" href="{{ link }}">Edit</a>{% endif %}
+      </tr>
+      {% endfor %}            
+    </tbody>    
+  </table>
+  
+  {% else %}
+  <p class="none">none</p>
+  {% endif %}
+  {% if rule_editor %}
+    <div class="edit_object"><a target="_blank" href="{% url 'add_rule_reference_rule' rule_id %}">Add Example</a></div>
+  {% endif %}
+  <h2>Informational Links</h2>
+  <ul>
+    {% for info_link in rule.informational_links.all %}
+    <li><a href="{{ info_link.url }}" target="_informational_link">{{ info_link.title_html|safe }}</a></li>
+    {% endfor %}
+  </ul>
+  
+  <h2>Rule ID</h2>
+  <p>{{ rule.nls_rule_id }}</p>
+
+  <h2>Target Resources Description</h2>
+  <p>{{ rule.target_resource_desc_html|safe}}</p>
+  <h2>Target Elements</h2>
+  <ul>
+    {% for tr in rule.target_resources.all %}
+    <li><a href="{{ tr.get_absolute_url }}#{{ tr }}"><code>{{ tr.title }}</code></a></li>
+    {% endfor %}
+  </ul>
+
+    {% if rule_editor and example_editor %}
+      <div class="edit_object"><a target="_blank" href="{{ admin_url_rule }}">Edit This Rule</a></div>
+    {% endif %}
+    
+  {% load comments %}
+  
+  
+  <h2>Comments</h2>
+  
+  {% render_comment_list for rule %}
+  
+  <h3>Add a comment</h3>
+  
+  {% if user.is_authenticated %}
+    {% get_comment_form for rule as form %}
+    <form action="{% comment_form_target %}" method="POST">
+    <input type="hidden" name="next" value="{{ request.path }}" />
+    {% csrf_token %}
+    {{ form.comment }}
+    {{ form.content_type }}
+    {{ form.object_pk }}
+    {{ form.timestamp }}
+    {{ form.security_hash }}
+    <input type="submit" value="Add comment" id="id_submit" />
+    </form>
+  {% else %}  
+    <p>You must be logged in to comment</p>
+  {% endif %}
+  
+</div>
+
+
+
+{% endblock %}
+
+{% block nav_options %}
+{% include 'rules/rule_options.html' %}
+{% endblock %}

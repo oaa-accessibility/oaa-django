@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div id="ruleset">
+
+  <p class="desc">Rule scope identifies the target resources of a rule.  Website rules require
+  looking at the consistency and navigation between pages in a website.  Page rules look at the 
+  ordering of content and identification of sections within a web page.  Element rules look
+  at the accessibility of indiviual elements or groups of related elements for accessibility.</p>
+  
+  
+  <h2 id=="id_website_h2">Website Rules</h2>
+  
+  <ul class="desc">
+    <li>Wesbite rules are associated with the navigation between pages in a website and the constency 
+      of ordering and labeling shared content/features between pages in a website.</li>
+    <li>These rules may require restructuring the order of content and feature labeling to improve 
+      consistencey between pages, and providing addition navigation mechanisms to make sure their is
+      more than one way to find content in the website.</li>
+    <li>Examples of page rules include: more than one way to navigate the content within the website, 
+      ensuring the order of shared content/features of the website is consistent in each page, and that
+      shared form controls, links, landmarks and headings use the same labels.</li>
+  </ul>
+
+
+  <table class="rule_categories" aria-labelledby="id_website_h2">
+    <thead>
+      <tr class="category">
+        <th class="text">Rule</th>
+        <th class="text"><abbr title="WCAG 2.0 Level">Level</abbr></th>
+        <th class="text"><abbr title="WCAG 2.0 Success Criteria">SC</abbr></th>
+        {% for rs in rulesets.all %}
+        <th class="text">{{ rs.title }}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for ri in website_rule_mappings %}
+      <tr {% if forloop.counter|divisibleby:"2" %} class="even" {% else %} class="odd" {% endif %}>
+        <td class="rule"><a href="{{ ri.rule.get_absolute_url }}">{{ ri.rule.summary_html|safe }}</a></td>
+        <td class="text">{{ri.rule.wcag_primary.show_level_html_code|safe}}</td>
+        <td class="text">{{ri.rule.wcag_primary.number}}</td>
+        {% for rsi in ri.ruleset_info %}
+        {% if rsi.mapped %}
+        {% if rsi.required %}
+        <td class="text required">Required</td>            
+        {% else %}
+        <td class="text recommended">Recommended</td>            
+        {% endif %}
+        {% else %}
+        <td class="text none">Not included</td>      
+        {% endif %}
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>  
+  
+
+  <h2 id=="id_page_h2">Page Rules</h2>
+  
+  <ul class="desc">
+    <li>Page rules are associated with the structure and ordering of content on a web page.</li>
+    <li>These rules may require restructuring the order of content and adding markup to describe the 
+    sections of a page.</li>
+    <li>Examples of page rules include: page titling, using <code>h1</code> and <code>main</code> 
+  landmarks to mark the beginning of the main content of the page, and insuring the reading order of content 
+  and the tabbing order of links, form controls and widgets elements of the page makes sense.</li>
+  </ul>
+  
+  
+  <table class="rule_categories" aria-labelledby="id_page_h2">
+    <thead>
+      <tr class="category">
+        <th class="text">Rule</th>
+        <th class="text"><abbr title="WCAG 2.0 Level">Level</abbr></th>
+        <th class="text"><abbr title="WCAG 2.0 Success Criteria">SC</abbr></th>
+        {% for rs in rulesets.all %}
+        <th class="text">{{ rs.title }}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for ri in page_rule_mappings %}
+      <tr {% if forloop.counter|divisibleby:"2" %} class="even" {% else %} class="odd" {% endif %}>
+        <td class="rule"><a href="{{ ri.rule.get_absolute_url }}">{{ ri.rule.summary_html|safe }}</a></td>
+        <td class="text">{{ri.rule.wcag_primary.show_level_html_code|safe}}</td>
+        <td class="text">{{ri.rule.wcag_primary.number}}</td>
+        {% for rsi in ri.ruleset_info %}
+        {% if rsi.mapped %}
+        {% if rsi.required %}
+        <td class="text required">Required</td>            
+        {% else %}
+        <td class="text recommended">Recommended</td>            
+        {% endif %}
+        {% else %}
+        <td class="text none">Not included</td>      
+        {% endif %}
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>  
+  
+  <h2 id=="id_element_h2">Element Rules</h2>
+  
+  <ol class="desc">
+    <li>Element rules are associated with the accessibility of a specific element or elements on
+    a page.</li>
+    <li>The accessibility problems of elements rules can be addressed by repairing the markup of an 
+      individual element or set of elements associated with the rule.</li>   
+    <li>Examples of element level rules include: <code>alt</code> attribute 
+  on <code>img</code> elements, labeling form controls and the text content of links.
+    </li>
+  </ol>
+  
+  <table class="rule_categories" aria-labelledby="id_element_h2">
+    <thead>
+      <tr class="category">
+        <th class="text">Rule</th>
+        <th class="text"><abbr title="WCAG 2.0 Level">Level</abbr></th>
+        <th class="text"><abbr title="WCAG 2.0 Success Criteria">SC</abbr></th>
+        {% for rs in rulesets.all %}
+        <th class="text">{{ rs.title }}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for ri in element_rule_mappings %}
+      <tr {% if forloop.counter|divisibleby:"2" %} class="even" {% else %} class="odd" {% endif %}>
+        <td class="rule"><a href="{{ ri.rule.get_absolute_url }}">{{ ri.rule.summary_html|safe }}</a></td>
+        <td class="text">{{ri.rule.wcag_primary.show_level_html_code|safe}}</td>
+        <td class="text">{{ri.rule.wcag_primary.number}}</td>
+        {% for rsi in ri.ruleset_info %}
+        {% if rsi.mapped %}
+        {% if rsi.required %}
+        <td class="text required">Required</td>            
+        {% else %}
+        <td class="text recommended">Recommended</td>            
+        {% endif %}
+        {% else %}
+        <td class="text none">Not included</td>      
+        {% endif %}
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>  
+  
+  
+  
+</div>
+{% endblock %}
+
+{% block nav_options %}
+{% include 'rulesets/ruleset_options.html' %}
+{% endblock %}

@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/coding/!svn/ver/153/trunk/django/coding/templates/rulesets
+END
+rule_categories.html
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/coding/!svn/ver/153/trunk/django/coding/templates/rulesets/rule_categories.html
+END
+ruleset_options.html
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/coding/!svn/ver/153/trunk/django/coding/templates/rulesets/ruleset_options.html
+END
+ruleset.html
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/coding/!svn/ver/153/trunk/django/coding/templates/rulesets/ruleset.html
+END
+wcag20.html
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/coding/!svn/ver/153/trunk/django/coding/templates/rulesets/wcag20.html
+END
+descriptions.html
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/coding/!svn/ver/143/trunk/django/coding/templates/rulesets/descriptions.html
+END
+rulesets.html
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/coding/!svn/ver/28/trunk/django/coding/templates/rulesets/rulesets.html
+END
+rule.html
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/coding/!svn/ver/148/trunk/django/coding/templates/rulesets/rule.html
+END
+scope.html
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/coding/!svn/ver/153/trunk/django/coding/templates/rulesets/scope.html
+END

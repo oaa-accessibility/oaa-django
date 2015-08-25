@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Sign up{% endblock %}
+
+{% block content %}
+
+  {% if form.errors %}
+  <p class="errors">Please correct the errors below: {{ form.non_field_errors }}</p>
+  {% endif %}
+
+  <h1>Create an account</h1>
+  
+  <form method="post" action="" class="register">
+	{% csrf_token %}
+    <p>
+      <label for="id_email">Email address:</label>
+      {% if form.email.errors %}
+        <p class="errors">{{ form.email.errors.as_text }}</p>
+      {% endif %}
+      {{ form.email }}
+    </p>
+    <p>
+      <label for="first">First:</label>
+        <p class="errors">{{ form.password1.errors.as_text }}</p>
+      {{ form.first }}
+    </p>
+    <p>
+      <label for="last">Last:</label>
+      {% if form.password2.errors %}
+        <p class="errors">{{ form.password2.errors.as_text }}</p>
+      {% endif %}
+      {{ form.last }}
+    </p>
+    <p>
+      <label for="id_organization">Organization:</label>
+      {{ form.organization }}
+    </p>
+    <p>
+      <label for="id_permissions">Permissions:</label>
+      {{ form.permissions }}
+    </p>
+    <p class="submit"><input type="submit" value="Register &rarr;"></p>
+  </form>
+  
+
+
+<a href="{% url 'login' %}"><p>If you already have an account, click to login</p></a>
+
+{% endblock %}
+

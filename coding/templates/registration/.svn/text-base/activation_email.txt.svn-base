@@ -1,0 +1,8 @@
+{% load humanize %}
+You have registered for an account at the accessible web coding practicing webiste. follow the link below to activate your profile.
+
+{{ site }}/accounts/activate/{{ activation_key }}/
+
+If you didn't request this, you don't need to do anything; you won't receive any more email from us, and the account will expire automatically in {{ expiration_days|apnumber }} day.
+
+You have been given the folling temporary password: '{{ password }}', without quotes. Please reset it once you have activated your account.

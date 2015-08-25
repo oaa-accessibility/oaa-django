@@ -1,0 +1,18 @@
+<div id="rulesets">
+
+  <h2 id="id_nav_options_label">Rulesets</h2>
+  <ul>
+    {% for rs in rulesets.all %}
+    <li {% if option == rs.slug %} class="active" {% endif %}><a href="{{ rs.get_absolute_url }}"                >{{ rs.title }}</a></li>
+    {% endfor %}
+  </ul>
+  
+  <h2 id="id_nav_options_label">Compare Rulesets</h2>
+  <ul>
+    <li {% if option == 'compare' %} class="active" {% endif %}><a href="{% url 'show_rulesets_rule_category' %}">Rule Category</a></li>
+    <li {% if option == 'wcag20'  %} class="active" {% endif %}><a href="{% url 'show_rulesets_wcag20'        %}">WCAG 2.0</a></li>
+    <li {% if option == 'scope'   %} class="active" {% endif %}><a href="{% url 'show_rulesets_scope'         %}">Rule Scope</a></li>
+  </ul>
+
+  
+</div>

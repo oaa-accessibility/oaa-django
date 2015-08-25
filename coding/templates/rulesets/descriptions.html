@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div id="rulesets">
+
+  <table class="descriptions" aria-labelledby="id_details_h2">
+    <thead>
+      <tr class="ruleset">
+        <th id="id_item" class="text">Feature</th> 
+        {% for rs in rulesets.all %}
+        <th class="text">{{ rs.title_html|safe }}</th>
+        {% endfor %}
+      </tr>      
+    </thead>
+    <tbody>
+      <tr class="odd">
+        <td class="text">Version</td>
+        {% for rs in rulesets.all %}
+        <td class="text">{{ rs.version}}</td>
+        {% endfor %}
+      </tr>        
+      <tr class="even">
+        <td class="text">Author</td>
+        {% for rs in rulesets.all %}
+        <td class="text"><a href="{{ rs.author_url}}">{{ rs.author}}</a></td>
+        {% endfor %}
+      </tr>        
+      <tr class="odd">
+        <td class="text">Description</td>
+        {% for rs in rulesets.all %}
+        <td class="text">{{ rs.description_html|safe }}</td>
+        {% endfor %}
+      </tr>        
+      <tr class="even">
+        <td class="text">Target Websites</td>
+        {% for rs in rulesets.all %}
+        {% if rs.web_resources_html %}
+        <td class="text">{{ rs.web_resources_html|safe }}</td>
+        {% else %}
+        <td class="text none">no information</td>
+        {% endif %}
+        {% endfor %}
+      </tr>        
+    </tbody>
+  </table>  
+</div>
+
+{% endblock %}
+
+{% block nav_options %}
+{% include 'rulesets/ruleset_options.html' %}
+{% endblock %}

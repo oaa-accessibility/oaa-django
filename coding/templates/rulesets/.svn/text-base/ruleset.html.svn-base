@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div id="ruleset">
+
+  <h2>Author</h2>
+  <p><a href="{{ ruleset.author_url }}">{{ ruleset.author }}</a></p>
+  
+  <h2>Description</h2>
+  <p>{{ ruleset.desc_html|safe }}</p>
+
+  <h2>Ruleset Summary</h2>
+  <ul>
+    <li>{{ required_rules.all.count }} Required rules</li>
+    <li>{{ recommended_rules.all.count }} Recommended rules</li>
+  </ul>
+  
+  {% for rmc in rule_mappings_by_categories %}
+  
+  <h2 class="rule_category">{{ rmc.rule_category.title }} Rules</h2>
+  
+  <p class="desc">{{ rmc.rule_category.description|safe }}</p>
+
+  <table class="rule_categories" aria-labelledby="id_details_h2">
+    <thead>
+      <tr class="category">
+        <th id="id_rule_{{rmc.rule_category.rule_category.slug}}">Rule</th> 
+        <th id="id_wcag20_level_{{rmc.rule_category.rule_category.slug}}" class="text"><abbr title="WCAG 2.0 Level">Level</abbr></th>
+        <th id="id_wcag20_sc_{{rmc.rule_category.rule_category.slug}}" class="text"><abbr title="WCAG 2.0 Success Criteria">SC</abbr></th>
+        <th id="id_required_{{rmc.rule_category.rule_category.slug}}" class="text">Required</th>
+        <th id="id_examples_{{rmc.rule_category.rule_category.slug}}" class="number">Examples</th>
+      </tr>      
+    </thead>
+    <tbody>      
+    {% for rm in rmc.rule_mappings %}
+    <tr {% if forloop.counter|divisibleby:"2" %} class="even" {% else %} class="odd" {% endif %}>
+      <td class="rule"><a href="{{rm.rule.get_absolute_url}}">{{ rm.rule.summary_html|safe }}</a></td>
+      <td class="text">{{ rm.rule.wcag_primary.show_level_html_code|safe }}</td>
+      <td class="text"><a href="{{rm.rule.wcag_primary.url}}" target="_wcag20">{{ rm.rule.wcag_primary.number }}</a></td>
+      {% if rm.required %}
+      <td class="text required">Yes</td>
+      {% else %}
+      <td class="text no">no</td>
+      {% endif %}
+      {% if rm.rule.rule_references.count %}
+      <td class="number"><a href="{{rm.rule.get_absolute_url}}#examples">{{ rm.rule.rule_references.count }}</a></td>
+      {% else %}
+      <td class="number zero">-</td>
+      {% endif %}
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>  
+  
+  
+  
+  {% endfor %}
+  
+  
+</div>
+{% endblock %}
+
+{% block nav_options %}
+{% include 'rulesets/ruleset_options.html' %}
+{% endblock %}

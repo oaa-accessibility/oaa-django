@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div id="rulesets">
+
+  <table class="rule_categories" aria-labelledby="id_details_h2">
+    {% for rci in ruleset_by_rule_category.rule_category_info %}
+    {% if rci.has_rules %}
+    <tr class="category">
+      <th id="id_th_{{rci.rule_category.rule_category.slug}}"><h2>{{ rci.rule_category.title }} Rules</h2></th> 
+      <th id="id_wcag20_level_{{rci.rule_category.rule_category.slug}}" class="text"><abbr title="WCAG 2.0 Level">Level</abbr></th>
+      <th id="id_wcag20_sc_{{rci.rule_category.rule_category.slug}}" class="text"><abbr title="WCAG 2.0 Success Criteria">SC</abbr></th>
+      {% for rs in ruleset_by_rule_category.rulesets.all %}
+      <th class="text">{{ rs.title }}</th>
+      {% endfor %}
+    </tr>
+    {% for ri in rci.rule_info %}
+    <tr {% if forloop.counter|divisibleby:"2" %} class="even" {% else %} class="odd" {% endif %}>
+      <td class="rule"><a href="{{ ri.rule.get_absolute_url }}">{{ ri.rule.summary_html|safe }}</a></td>
+      <td class="text">{{ ri.rule.wcag_primary.show_level_html_code|safe }}</td>
+      <td class="text">{{ ri.rule.wcag_primary.number }}</td>
+      {% for rsi in ri.ruleset_info %}
+        {% if rsi.mapped %}
+          {% if rsi.required %}
+       <td class="text required">Required</td>            
+          {% else %}
+      <td class="text recommended">Recommended</td>            
+          {% endif %}
+        {% else %}
+      <td class="text none">Not included</td>      
+        {% endif %}
+      {% endfor %}
+    </tr>
+    {% endfor %}
+    {% endif %}
+    {% endfor %}
+  </table>  
+</div>
+
+{% endblock %}
+
+{% block nav_options %}
+{% include 'rulesets/ruleset_options.html' %}
+{% endblock %}

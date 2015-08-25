@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block content %}
+<div role="navigation" aria-labelledby="id_toc_h2">
+  
+<h2 id="id_toc_h2">Number of Rules for each Rule Category</h2>
+  
+<table aria-labelledy="id_toc_h2" class="toc">
+  <thead>
+    <th class="text">Rule Category</th>
+    <th class="num">Number of Rules</th>
+  </thead>
+  <tbody>
+  
+  {% for c in categories %}
+    <tr {% if forloop.counter|divisibleby:"2" %} class="even" {% else %} class="odd" {% endif %}>
+      <td class="text"><a href="#id_{{c.slug}}">{{c.title}}</a></td>
+      <td class="num">{{ c.rules.all.count }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>  
+</table>
+
+</div>
+
+<h2 id="id_details_h2">Rule Details for each Rule Category</h2>
+
+
+<table class="rule_categories" aria-labelledby="id_details_h2">
+  {% for c in categories %}
+    <tr class="category">
+      <th id="id_th_{{c.slug}}"><h3><a id="id_{{c.slug}}"></a>{{c.title_plural}} Rules</h3></th> 
+      <th id="id_manu_{{c.slug}}" class="text">Manual Checks</th>
+      <th id="id_tech_{{c.slug}}" class="num">Techniques</th>
+      <th id="id_exam_{{c.slug}}" class="num">Examples</th>
+    </tr>
+  {% if c.rules.all.count %}
+  {% for r in c.rules.all %}
+    <tr {% if forloop.counter|divisibleby:"2" %} class="even" {% else %} class="odd" {% endif %}>
+      <td headers="id_th_{{c.slug}}"><a id="RULE_{{r.rule_id}}" href="{{ SITE_URL }}{{ r.get_absolute_url }}">{{ r.definition_html|safe }}</td>
+      {% if r.manual_checks.all.count %}
+      <td headers="id_th_{{c.slug}} id_manu_{{c.slug}}" class="text yes">Yes</td>
+      {% else %}
+      <td headers="id_th_{{c.slug}} id_manu_{{c.slug}}" class="text no">no</td>      
+      {% endif %}
+      <td headers="id_th_{{c.slug}} id_tech_{{c.slug}}" {% if r.techniques.all.count %} class="num" {% else %} class="num zero" {% endif %}>{{ r.techniques.all.count }}</td>
+      <td headers="id_th_{{c.slug}} id_exam_{{c.slug}}" {% if r.number_of_examples   %} class="num" {% else %} class="num zero" {% endif %}>{{ r.number_of_examples }}</td>
+    </tr>
+    {% endfor %}
+  {% else %}  
+  <tr {% if forloop.counter|divisibleby:"2" %} class="even" {% else %} class="odd" {% endif %}>
+    <td headers="id_th_{{c.slug}}" class="text none">none</td>
+    <td headers="id_th_{{c.slug}} id_manu_{{c.slug}}" class="text no">no</td>
+    <td headers="id_th_{{c.slug}} id_tech_{{c.slug}}" class="num zero" >0</td>
+    <td headers="id_th_{{c.slug}} id_exam_{{c.slug}}" class="num zero" >0</td>
+  </tr>
+  {% endif %}
+  {% endfor %}
+</table>
+
+
+{% for group in user.groups.all %}
+    {% if group.name == 'rule_editors' %}
+        <div class="addrule"> <a href="/admin/rules/rule/add/">admin</a> </div>
+    {% endif %}
+{% endfor %}
+
+{% endblock %}
+
+{% block nav_options %}
+{% include 'rules/rule_options.html' %}
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div id="rulesets">
+
+  <ul>
+  {% for rs in rulesets.all %}
+    <li>{{ rs.title }}</li>
+  {% endfor %}  
+  </ul>
+</div>
+{% endblock %}

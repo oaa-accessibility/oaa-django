@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/coding/!svn/ver/126/trunk/django/coding/templates/registration
+END
+password_change_done.html
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/coding/!svn/ver/111/trunk/django/coding/templates/registration/password_change_done.html
+END
+edit_user.html
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/coding/!svn/ver/111/trunk/django/coding/templates/registration/edit_user.html
+END
+activation_email.txt
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/coding/!svn/ver/126/trunk/django/coding/templates/registration/activation_email.txt
+END
+password_reset_form.html
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/coding/!svn/ver/111/trunk/django/coding/templates/registration/password_reset_form.html
+END
+activation_complete.html
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/coding/!svn/ver/111/trunk/django/coding/templates/registration/activation_complete.html
+END
+password_change_form.html
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/coding/!svn/ver/111/trunk/django/coding/templates/registration/password_change_form.html
+END
+password_reset_complete.html
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/coding/!svn/ver/111/trunk/django/coding/templates/registration/password_reset_complete.html
+END
+registration_form.html
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/coding/!svn/ver/111/trunk/django/coding/templates/registration/registration_form.html
+END
+activate.html
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/coding/!svn/ver/111/trunk/django/coding/templates/registration/activate.html
+END
+registration_complete.html
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/coding/!svn/ver/111/trunk/django/coding/templates/registration/registration_complete.html
+END
+activation_email_subject.txt
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/coding/!svn/ver/111/trunk/django/coding/templates/registration/activation_email_subject.txt
+END
+login.html
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/coding/!svn/ver/111/trunk/django/coding/templates/registration/login.html
+END
+password_reset_done.html
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/coding/!svn/ver/111/trunk/django/coding/templates/registration/password_reset_done.html
+END
+logout.html
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/coding/!svn/ver/111/trunk/django/coding/templates/registration/logout.html
+END
+password_reset_email.html
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/coding/!svn/ver/111/trunk/django/coding/templates/registration/password_reset_email.html
+END

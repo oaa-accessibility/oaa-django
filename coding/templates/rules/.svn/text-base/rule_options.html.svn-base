@@ -1,0 +1,18 @@
+<div id="rulesets">
+  
+  <h2 id="id_nav_options_label"><a href="{{ nav_main.rules_url }}">Rule Options</a></h2>
+  <ul>
+    <li {% if rules == 'by_rule_category' %} class="active" {% endif %}><a href="{% url 'show_rules_by_rule_categories' %}">by Rule Categories</a></li>
+    <li {% if rules == 'by_wcag20'        %} class="active" {% endif %}><a href="{% url 'show_rules_by_wcag20'          %}">by WCAG 2.0</a></li>
+  </ul>
+  
+  {% if rule %}
+  <h2>Rule Navigation</h2>
+  <ul>
+    <li><a href="{{ rule.get_next_rule_by_rule_category.get_absolute_url }}">Next Rule 1</a></li>
+    <li><a href="{{ rule.get_previous_rule_by_rule_category.get_absolute_url }}">Previous Rule 1</a></li>
+    <li><a href="{{ rule.get_next_rule_by_wcag_success_criteria.get_absolute_url }}">Next Rule 2</a></li>
+    <li><a href="{{ rule.get_previous_rule_by_wcag_success_criteria.get_absolute_url }}">Previous Rule 2</a></li>
+  </ul>
+  {% endif %}
+</div>

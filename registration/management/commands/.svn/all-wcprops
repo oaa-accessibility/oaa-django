@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/coding/!svn/ver/109/trunk/django/registration/management/commands
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/coding/!svn/ver/109/trunk/django/registration/management/commands/__init__.py
+END
+cleanupregistration.py
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/coding/!svn/ver/109/trunk/django/registration/management/commands/cleanupregistration.py
+END

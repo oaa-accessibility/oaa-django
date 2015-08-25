@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block content %}
+<div role="navigation" aria-labelledby="id_toc_h2">
+  
+  <h2 id="id_toc_h2">Number of Rules for each WCAG 2.0 Guideline</h2>
+  
+  <table aria-labelledy="id_toc_h2" class="toc">
+    <thead>
+      <th>WCAG 2.0 Guideline</th>
+      <th class="num">Number of Rules</th>
+    </thead>
+    <tbody>
+      
+      {% for g in guidelines %}
+      <tr {% if forloop.counter|divisibleby:"2" %} class="even" {% else %} class="odd" {% endif %}>
+        <td><a href="#id_details_{{g.id}}">{{g.number}} {{g.title}}</a></td>
+        <td class="num">{{ g.get_rule_count }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>  
+  </table>
+    
+</div>
+
+<h2>Rule Details for each WCAG 2.0 Guideline/Success Criteria</h2>
+
+{% for g in guidelines %}
+
+<h3 id="id_details_{{g.id}}"><a id="id_{{g.number}}" href="{{ g.url }}" target="_requirement_ref">{{g}}</a></h3>
+
+<table aria-labelledby="id_details_{{g.id}}">
+  {% for sc in g.success_criteria.all %}
+  {% if sc.level != '3' %}
+  <thead>
+    <tr>
+      <th id="id_th_{{sc.number}}"><h4><a id="id_{{sc.number}}" href="{{ sc.url }}" target="_requirement_ref">Rules for {{ sc }} ({{sc.show_level}})</a></h4></th> 
+      <th id="id_manu_{{sc.number}}" class="text">Manual Checks</th>
+      <th id="id_tech_{{sc.number}}" class="num">Techniques</th>
+      <th id="id_exam_{{sc.number}}" class="num">Examples</th>
+    </tr>    
+  </thead>
+  <tbody>
+  {% if sc.rules.all.count %}
+  {% for r in sc.rules.all %}
+    <tr {% if forloop.counter|divisibleby:"2" %} class="even" {% else %} class="odd" {% endif %}>
+      <td headers="id_th_{{sc.number}}"><a id="RULE_{{r.rule_id}}" href="{{ SITE_URL }}{{ r.get_absolute_url }}">{{ r.definition_html|safe }}</a></td>
+
+      {% if r.manual_checks.all.count %}
+      <td headers="id_th_{{sc.number}} id_manu_{{sc.number}}" class="text yes">Yes</td>
+      {% else %}
+      <td headers="id_th_{{sc.number}} id_manu_{{sc.number}}" class="text no">no</td>      
+      {% endif %}
+      <td headers="id_th_{{sc.number}} id_tech_{{sc.number}}" {% if r.techniques.all.count %} class="num" {% else %} class="num zero" {% endif %}>{{ r.techniques.all.count }}</td>
+      <td headers="id_th_{{sc.number}} id_exam_{{sc.number}}" {% if r.number_of_examples   %} class="num" {% else %} class="num zero" {% endif %}>{{ r.number_of_examples }}</td>
+      
+    </tr>    
+  {% endfor %}
+  {% else %}
+    <tr>
+      <td headers="id_th_{{sc.number}}"><span class="none">none</span></td>
+      <td headers="id_th_{{sc.number}} id_tech_{{sc.number}}" class="num"><span class="none">none</span></td>
+      <td headers="id_th_{{sc.number}} id_manu_{{sc.number}}" class="num"><span class="none">none</span></td>
+      <td headers="id_th_{{sc.number}} id_exam_{{sc.number}}" class="num"><span class="none">none</span></td>
+    </tr>  
+  {% endif %}
+  {% endif %}
+  {% endfor %}
+  </tbody>
+</table>
+
+{% endfor %}
+
+{% for group in user.groups.all %}
+    {% if group.name == 'rule_editors' %}
+        <div class="addrule"> <a href="/admin/rules/rule/add/">admin</a> </div>
+    {% endif %}
+{% endfor %}
+
+{% endblock %}
+
+{% block nav_options %}
+{% include 'rules/rule_options.html' %}
+{% endblock %}

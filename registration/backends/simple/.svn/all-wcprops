@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/coding/!svn/ver/109/trunk/django/registration/backends/simple
+END
+views.py
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/coding/!svn/ver/109/trunk/django/registration/backends/simple/views.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/coding/!svn/ver/109/trunk/django/registration/backends/simple/__init__.py
+END
+urls.py
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/coding/!svn/ver/109/trunk/django/registration/backends/simple/urls.py
+END

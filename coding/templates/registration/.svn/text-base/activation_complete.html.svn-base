@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}Activation complete{% endblock %}
+
+{% block content %}
+<h1>Congratulations!</h1>
+<p>Your registration is now complete.</p>
+<a href="{% url "show_home" %}accounts/password/change/"<p>Please reset your password by clicking on this link.</p></a>
+{% endblock %}
